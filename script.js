@@ -5,47 +5,33 @@
 // ──────────────────────────────────────────────
 // ARTWORK DATA
 // ──────────────────────────────────────────────
-// To add your own artwork, set the "image" field to the
-// path of your image file (relative or absolute).
+// To add more artwork, add an entry with:
+//   name  — the title shown above the book
+//   image — path to the image file
 //
-// Example:
-//   { location: "Paris", date: "March 2024", image: "artwork/paris.jpg" }
-//
-// If "image" is null, a beautiful placeholder is shown.
-// You can also use "leftImage" and "rightImage" for
-// separate images on each page of the book spread.
+// If "image" is null, a placeholder gradient is shown.
 // ──────────────────────────────────────────────
 
 const artworks = [
   {
-    location: "Paris, France",
-    date: "March 2024",
-    image: null,              // Replace with your artwork path
-    placeholderGradient: "linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%)"
+    name: "Festive Star",
+    image: "artwork/festive-star.jpg"
   },
   {
-    location: "Venice, Italy",
-    date: "April 2024",
-    image: null,
-    placeholderGradient: "linear-gradient(135deg, #e0f2f1 0%, #e8eaf6 50%, #fce4ec 100%)"
+    name: "Bal Krishna",
+    image: "artwork/bal-krishna.jpg"
   },
   {
-    location: "Kyoto, Japan",
-    date: "May 2024",
-    image: null,
-    placeholderGradient: "linear-gradient(135deg, #fff3e0 0%, #fce4ec 50%, #f3e5f5 100%)"
+    name: "Moonlit Valley",
+    image: "artwork/moonlit-valley.jpg"
   },
   {
-    location: "Santorini, Greece",
-    date: "June 2024",
-    image: null,
-    placeholderGradient: "linear-gradient(135deg, #e3f2fd 0%, #e8eaf6 50%, #e0f2f1 100%)"
+    name: "Serene Seas",
+    image: "artwork/serene-seas.png"
   },
   {
-    location: "Marrakech, Morocco",
-    date: "July 2024",
-    image: null,
-    placeholderGradient: "linear-gradient(135deg, #fff8e1 0%, #ffe0b2 50%, #ffccbc 100%)"
+    name: "Red Lotus",
+    image: "artwork/red-lotus.png"
   }
 ];
 
@@ -63,8 +49,7 @@ let wheelAccumulator = 0; // Tracks trackpad swipe distance to prevent multi-sli
 // DOM REFERENCES
 // ──────────────────────────────────────────────
 const viewport = document.getElementById('carousel-viewport');
-const locationEl = document.getElementById('page-location');
-const dateEl = document.getElementById('page-date');
+const nameEl = document.getElementById('page-name');
 const dotsContainer = document.getElementById('dots-container');
 const navLeft = document.getElementById('nav-left');
 const navRight = document.getElementById('nav-right');
@@ -79,10 +64,10 @@ function createBookElement(artwork, index) {
 
   const artworkContent = artwork.image
     ? `<div class="artwork-spread">
-         <img src="${artwork.image}" alt="${artwork.location} artwork" loading="lazy" />
+         <img src="${artwork.image}" alt="${artwork.name}" loading="lazy" />
        </div>`
     : `<div class="artwork-spread">
-         <div class="artwork-placeholder" style="background: ${artwork.placeholderGradient}">
+         <div class="artwork-placeholder" style="background: ${artwork.placeholderGradient || 'linear-gradient(135deg, #FFF7E6, #F7C8D3)'}">
            <div class="placeholder-icon">
              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
@@ -191,20 +176,16 @@ function updatePageInfo(animate = true) {
   const artwork = artworks[currentIndex];
 
   if (!animate) {
-    locationEl.textContent = artwork.location;
-    dateEl.textContent = artwork.date;
+    nameEl.textContent = artwork.name;
     return;
   }
 
   // Fade out
-  locationEl.classList.add('transitioning');
-  dateEl.classList.add('transitioning');
+  nameEl.classList.add('transitioning');
 
   setTimeout(() => {
-    locationEl.textContent = artwork.location;
-    dateEl.textContent = artwork.date;
-    locationEl.classList.remove('transitioning');
-    dateEl.classList.remove('transitioning');
+    nameEl.textContent = artwork.name;
+    nameEl.classList.remove('transitioning');
   }, 300);
 }
 
