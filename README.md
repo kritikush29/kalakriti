@@ -1,16 +1,17 @@
 # Kalakriti — Digital Sketchbook
 
-Kalakriti is a beautiful, immersive, and responsive digital sketchbook designed to showcase paintings, drawings, and digital art in an interactive, book-like carousel format. 
+Kalakriti is a beautiful, immersive, and responsive digital sketchbook designed to showcase paintings, drawings, and digital art in an interactive, clean rectangular carousel format.
 
-Built with vanilla HTML, CSS, and JavaScript, it features a highly polished design with smooth animations, realistic book folding details, and multi-modal navigation suited for both desktop and mobile devices.
+Built with vanilla HTML, CSS, and JavaScript, it features a highly polished design with smooth animations, elegant glassmorphism, and multi-modal navigation suited for both desktop and mobile devices.
 
 ---
 
 ## ✨ Features
 
-- 📖 **Realistic Book Design**: A custom-styled open sketchbook with a center spine gradient fold effect, page layered shadows, and a classic red ribbon bookmark.
-- 🌫️ **Immersive Carousel Layout**: Displays the active sketch in full focus, while adjacent pages are scaled down and blurred to build depth of field.
+- 🖼️ **Minimal Gallery Layout**: Artworks are displayed in elegant, modern rectangular containers with minimal borders and subtle shadows, putting the art at the center of attention.
+- 🌫️ **Immersive Carousel Effect**: Displays the active artwork in full focus, while adjacent pages are scaled down and blurred to build depth of field.
 - 🎨 **Aesthetic Background**: A subtle, drifting pastel gradient background with floating organic light orbs.
+- ℹ️ **Glassmorphism Info Modal**: An elegant info modal popup triggered by a minimalist "i" stamp button, presenting the artist's statement and core idea.
 - 🎛️ **Multi-Modal Navigation**:
   - Clickable side pages to jump directly to a page.
   - Classic navigation arrows & bottom dot/dash progress indicators.
@@ -18,7 +19,7 @@ Built with vanilla HTML, CSS, and JavaScript, it features a highly polished desi
   - Mobile touch swipe gesture support.
   - **Trackpad Support**: Real-time two-finger horizontal wheel swipe tracking with an accumulator threshold to prevent accidental skipping.
 - 💻 **Fully Responsive**: Adapts seamlessly to all screen sizes, from ultra-wide monitors to mobile screens.
-- 🖼️ **Modular Design**: Configured to display full-width spreads, making it incredibly simple to swap in custom image files.
+- ⚙️ **Modular Design**: Configured via a simple data array, making it incredibly simple to add or swap artworks.
 
 ---
 
@@ -27,13 +28,13 @@ Built with vanilla HTML, CSS, and JavaScript, it features a highly polished desi
 - **Core Structure**: HTML5 (Semantic elements)
 - **Styling**: Vanilla CSS3 (Custom properties, grid, flexbox, keyframes, backdrop-filter)
 - **Interactions**: Vanilla JavaScript (ES6+, touch gestures, wheel API accumulator, event delegation)
-- **Fonts**: Playfair Display & Cormorant Garamond via Google Fonts
+- **Typography**: WindSong (signature logo/titles), Inter (sans-serif), Playfair Display & Cormorant Garamond via Google Fonts
 
 ---
 
 ## 🚀 Getting Started
 
-Since this is a client-side project, you don't need any complex installation or build processes. 
+Since this is a client-side project, you don't need any complex installation or build processes.
 
 ### Running Locally
 You can view the project by simply opening the `index.html` file in any modern web browser, or serve it locally using a simple server:
@@ -47,17 +48,17 @@ npx serve .
 
 ## 🎨 Customizing & Adding Your Artwork
 
-To add your own art, open the `script.js` file and look for the `artworks` array at the top. Replace the `image: null` values with the path to your image files:
+To add your own art, open the `script.js` file and edit the `artworksData` array at the top:
 
 ```javascript
-const artworks = [
+const artworksData = [
   {
-    location: "Paris, France",
-    date: "March 2024",
-    image: "assets/my-paris-watercolor.jpg", // path to your image
+    id: 1,
+    title: "My Artwork Name",
+    imageSrc: "artwork/my-artwork-image.jpg" // path to your image
   },
   // ...
 ];
 ```
 
-If no image is provided (`image: null`), Kalakriti will automatically fall back to showing a beautiful pastel gradient placeholder card indicating where your artwork goes.
+If no image is provided (`imageSrc: null`), Kalakriti will automatically fall back to showing a placeholder card indicating where your artwork goes.
