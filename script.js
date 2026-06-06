@@ -5,33 +5,63 @@
 // ──────────────────────────────────────────────
 // ARTWORK DATA
 // ──────────────────────────────────────────────
-// To add more artwork, add an entry with:
-//   name  — the title shown above the book
-//   image — path to the image file
-//
-// If "image" is null, a placeholder gradient is shown.
+// To add or remove artwork, simply edit this array.
+// Each entry requires:
+//   id          — unique identifier
+//   title       — displayed above the artwork
+//   imageSrc    — path to the image file (null for placeholder)
 // ──────────────────────────────────────────────
 
-const artworks = [
+const artworksData = [
   {
-    name: "Festive Star",
-    image: "artwork/festive-star.jpg"
+    id: 1,
+    title: "Festive Star",
+    imageSrc: "artwork/festive-star.jpg"
   },
   {
-    name: "Bal Krishna",
-    image: "artwork/bal-krishna.jpg"
+    id: 2,
+    title: "Bal Krishna",
+    imageSrc: "artwork/bal-krishna.jpg"
   },
   {
-    name: "Moonlit Valley",
-    image: "artwork/moonlit-valley.jpg"
+    id: 3,
+    title: "Moonlit Valley",
+    imageSrc: "artwork/moonlit-valley.jpg"
   },
   {
-    name: "Serene Seas",
-    image: "artwork/serene-seas.png"
+    id: 4,
+    title: "Serene Seas",
+    imageSrc: "artwork/serene-seas.png"
   },
   {
-    name: "Red Lotus",
-    image: "artwork/red-lotus.png"
+    id: 5,
+    title: "Red Lotus",
+    imageSrc: "artwork/red-lotus.png"
+  },
+  {
+    id: 6,
+    title: "Sunflower Bloom",
+    imageSrc: "artwork/sunflower-bloom.jpg"
+  },
+  {
+    id: 7,
+    title: "Blue Butterflies",
+    imageSrc: "artwork/blue-butterflies.jpg"
+  },
+  {
+    id: 8,
+    title: "Midnight Canopy",
+    imageSrc: "artwork/midnight-canopy.jpg"
+  },
+  {
+    id: 9,
+    title: "Blue Morpho",
+    imageSrc: "artwork/blue-morpho.jpg"
+  },
+  {
+    id: 10,
+    title: "Lotus Maiden",
+    imageSrc: "artwork/lotus-maiden.jpg"
   }
 ];
 
@@ -62,12 +92,12 @@ function createBookElement(artwork, index) {
   item.className = 'carousel-item';
   item.dataset.index = index;
 
-  const artworkContent = artwork.image
+  const artworkContent = artwork.imageSrc
     ? `<div class="artwork-spread">
-         <img src="${artwork.image}" alt="${artwork.name}" loading="lazy" />
+         <img src="${artwork.imageSrc}" alt="${artwork.title}" loading="lazy" />
        </div>`
     : `<div class="artwork-spread">
-         <div class="artwork-placeholder" style="background: ${artwork.placeholderGradient || 'linear-gradient(135deg, #FFF7E6, #F7C8D3)'}">
+         <div class="artwork-placeholder">
            <div class="placeholder-icon">
              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
@@ -80,14 +110,9 @@ function createBookElement(artwork, index) {
   item.innerHTML = `
     <div class="book-card">
       <div class="book">
-        <div class="ribbon">
-          <div class="ribbon-body"></div>
-        </div>
         <div class="book-pages">
           ${artworkContent}
         </div>
-        <div class="book-spine"></div>
-        <div class="book-fold"></div>
       </div>
     </div>
   `;
@@ -97,7 +122,7 @@ function createBookElement(artwork, index) {
 
 function buildCarousel() {
   viewport.innerHTML = '';
-  artworks.forEach((artwork, i) => {
+  artworksData.forEach((artwork, i) => {
     const el = createBookElement(artwork, i);
     viewport.appendChild(el);
   });
@@ -110,7 +135,7 @@ function buildCarousel() {
 // ──────────────────────────────────────────────
 function buildDots() {
   dotsContainer.innerHTML = '';
-  artworks.forEach((_, i) => {
+  artworksData.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = 'dot' + (i === currentIndex ? ' active' : ' inactive');
     dot.setAttribute('aria-label', `Go to page ${i + 1}`);
@@ -173,10 +198,10 @@ function updateCarousel(animate = true) {
 // PAGE INFO TEXT TRANSITION
 // ──────────────────────────────────────────────
 function updatePageInfo(animate = true) {
-  const artwork = artworks[currentIndex];
+  const artwork = artworksData[currentIndex];
 
   if (!animate) {
-    nameEl.textContent = artwork.name;
+    nameEl.textContent = artwork.title;
     return;
   }
 
@@ -184,7 +209,7 @@ function updatePageInfo(animate = true) {
   nameEl.classList.add('transitioning');
 
   setTimeout(() => {
-    nameEl.textContent = artwork.name;
+    nameEl.textContent = artwork.title;
     nameEl.classList.remove('transitioning');
   }, 300);
 }
@@ -194,7 +219,7 @@ function updatePageInfo(animate = true) {
 // ──────────────────────────────────────────────
 function updateNavArrows() {
   navLeft.classList.toggle('hidden', currentIndex === 0);
-  navRight.classList.toggle('hidden', currentIndex === artworks.length - 1);
+  navRight.classList.toggle('hidden', currentIndex === artworksData.length - 1);
 }
 
 // ──────────────────────────────────────────────
@@ -202,7 +227,7 @@ function updateNavArrows() {
 // ──────────────────────────────────────────────
 function goTo(index) {
   if (isTransitioning || index === currentIndex) return;
-  if (index < 0 || index >= artworks.length) return;
+  if (index < 0 || index >= artworksData.length) return;
 
   isTransitioning = true;
   currentIndex = index;
@@ -322,4 +347,36 @@ viewport.addEventListener('click', (e) => {
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   buildCarousel();
+});
+
+// ──────────────────────────────────────────────
+// INFO MODAL
+// ──────────────────────────────────────────────
+const infoBtn = document.querySelector('.info-btn');
+const modalBackdrop = document.getElementById('modal-backdrop');
+const modalCloseBtn = document.getElementById('modal-close');
+
+let isModalOpen = false;
+
+function openModal() {
+  isModalOpen = true;
+  modalBackdrop.classList.add('open');
+}
+
+function closeModal() {
+  isModalOpen = false;
+  modalBackdrop.classList.remove('open');
+}
+
+infoBtn.addEventListener('click', openModal);
+modalCloseBtn.addEventListener('click', closeModal);
+
+// Close on backdrop click (not card click)
+modalBackdrop.addEventListener('click', (e) => {
+  if (e.target === modalBackdrop) closeModal();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isModalOpen) closeModal();
 });
