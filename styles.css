@@ -28,7 +28,7 @@
   --text-dark: var(--midnight-lagoon);
   --text-muted: #5a6a78;
   --text-light: var(--misty-sky);
-  --dot-inactive: rgba(169, 183, 198, 0.4);
+  --dot-inactive: rgba(0, 0, 0, 0.4);
   --dot-active: var(--rosewood);
   --transition-main: 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -36,7 +36,7 @@
 html, body {
   height: 100%;
   overflow: hidden;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'windsong', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -90,6 +90,7 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 3px 12px rgba(45, 58, 71, 0.3);
+  text-transform: lowercase;
 }
 
 .stamp::after {
@@ -120,7 +121,7 @@ body {
 }
 
 .stamp-top {
-  font-family: 'Playfair Display', serif;
+  font-family: 'windsong', cursive;
   font-weight: 700;
   font-size: 11px;
   letter-spacing: 3px;
@@ -128,7 +129,7 @@ body {
 }
 
 .stamp-bottom {
-  font-family: 'Playfair Display', serif;
+  font-family: 'windsong', cursive;
   font-weight: 400;
   font-size: 9px;
   letter-spacing: 4px;
@@ -277,63 +278,35 @@ body {
 
 /* ============ BOOK CARD ============ */
 .book-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow:
-    0 12px 48px rgba(45, 58, 71, 0.1),
-    0 2px 8px rgba(45, 58, 71, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 8px 30px rgba(45, 58, 71, 0.08);
+  border: 1px solid rgba(45, 58, 71, 0.15);
   position: relative;
 }
 
-/* Stacked pages effect */
+/* Stacked pages effect disabled */
 .book-card::before {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 26px;
-  right: 26px;
-  height: 4px;
-  background: rgba(240, 234, 222, 0.6);
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 1px 0 rgba(220, 214, 202, 0.4);
+  display: none;
 }
 
 .book-card::after {
-  content: '';
-  position: absolute;
-  bottom: -7px;
-  left: 30px;
-  right: 30px;
-  height: 3px;
-  background: rgba(240, 234, 222, 0.35);
-  border-radius: 0 0 6px 6px;
+  display: none;
 }
 
 /* ============ THE BOOK ============ */
 .book {
   position: relative;
   width: 100%;
-  background: var(--page-cream);
-  border-radius: 5px;
+  background: transparent;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-/* Paper texture overlay */
+/* Paper texture overlay disabled */
 .book::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  background-size: 128px;
-  z-index: 2;
-  pointer-events: none;
+  display: none;
 }
 
 .book-pages {
@@ -441,57 +414,16 @@ body {
 
 /* ============ SPINE & FOLD EFFECT ============ */
 .book-spine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to right,
-    rgba(160, 140, 120, 0.1),
-    rgba(100, 80, 65, 0.3) 35%,
-    rgba(60, 45, 35, 0.45) 50%,
-    rgba(100, 80, 65, 0.3) 65%,
-    rgba(160, 140, 120, 0.1)
-  );
-  z-index: 12;
-  pointer-events: none;
+  display: none;
 }
 
 .book-fold {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 90px;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.015) 15%,
-    rgba(0, 0, 0, 0.04) 35%,
-    rgba(0, 0, 0, 0.07) 46%,
-    rgba(0, 0, 0, 0.09) 50%,
-    rgba(0, 0, 0, 0.07) 54%,
-    rgba(0, 0, 0, 0.04) 65%,
-    rgba(0, 0, 0, 0.015) 85%,
-    transparent 100%
-  );
-  z-index: 13;
-  pointer-events: none;
+  display: none;
 }
 
 /* ============ RIBBON BOOKMARK ============ */
 .ribbon {
-  position: absolute;
-  top: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 52px;
-  z-index: 15;
-  pointer-events: none;
+  display: none;
 }
 
 .ribbon-body {
@@ -637,8 +569,8 @@ body {
   }
 
   .book-card {
-    padding: 14px;
-    border-radius: 14px;
+    padding: 6px;
+    border-radius: 6px;
   }
 
   .page-info .artwork-name {
