@@ -65,9 +65,9 @@ const artworksData = [
   }
 ];
 
-// ──────────────────────────────────────────────
+
 // STATE
-// ──────────────────────────────────────────────
+
 let currentIndex = 0;
 let isTransitioning = false;
 let touchStartX = 0;
@@ -75,18 +75,18 @@ let touchStartY = 0;
 let isDragging = false;
 let wheelAccumulator = 0; // Tracks trackpad swipe distance to prevent multi-slide skipping
 
-// ──────────────────────────────────────────────
+
 // DOM REFERENCES
-// ──────────────────────────────────────────────
+
 const viewport = document.getElementById('carousel-viewport');
 const nameEl = document.getElementById('page-name');
 const dotsContainer = document.getElementById('dots-container');
 const navLeft = document.getElementById('nav-left');
 const navRight = document.getElementById('nav-right');
 
-// ──────────────────────────────────────────────
+
 // BUILD CAROUSEL
-// ──────────────────────────────────────────────
+
 function createBookElement(artwork, index) {
   const item = document.createElement('div');
   item.className = 'carousel-item';
@@ -130,9 +130,7 @@ function buildCarousel() {
   updateCarousel(false);
 }
 
-// ──────────────────────────────────────────────
 // DOTS
-// ──────────────────────────────────────────────
 function buildDots() {
   dotsContainer.innerHTML = '';
   artworksData.forEach((_, i) => {
@@ -151,9 +149,8 @@ function updateDots() {
   });
 }
 
-// ──────────────────────────────────────────────
 // UPDATE CAROUSEL POSITIONS
-// ──────────────────────────────────────────────
+
 function updateCarousel(animate = true) {
   const items = viewport.querySelectorAll('.carousel-item');
 
@@ -194,9 +191,8 @@ function updateCarousel(animate = true) {
   updateNavArrows();
 }
 
-// ──────────────────────────────────────────────
 // PAGE INFO TEXT TRANSITION
-// ──────────────────────────────────────────────
+
 function updatePageInfo(animate = true) {
   const artwork = artworksData[currentIndex];
 
@@ -214,17 +210,16 @@ function updatePageInfo(animate = true) {
   }, 300);
 }
 
-// ──────────────────────────────────────────────
 // NAV ARROWS
-// ──────────────────────────────────────────────
+
 function updateNavArrows() {
   navLeft.classList.toggle('hidden', currentIndex === 0);
   navRight.classList.toggle('hidden', currentIndex === artworksData.length - 1);
 }
 
-// ──────────────────────────────────────────────
+
 // NAVIGATION
-// ──────────────────────────────────────────────
+
 function goTo(index) {
   if (isTransitioning || index === currentIndex) return;
   if (index < 0 || index >= artworksData.length) return;
@@ -246,9 +241,8 @@ function goPrev() {
   goTo(currentIndex - 1);
 }
 
-// ──────────────────────────────────────────────
 // EVENT LISTENERS
-// ──────────────────────────────────────────────
+
 
 // Arrow buttons
 navLeft.addEventListener('click', goPrev);
@@ -342,16 +336,14 @@ viewport.addEventListener('click', (e) => {
   if (idx !== currentIndex) goTo(idx);
 });
 
-// ──────────────────────────────────────────────
 // INITIALIZE
-// ──────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
   buildCarousel();
 });
 
-// ──────────────────────────────────────────────
 // INFO MODAL
-// ──────────────────────────────────────────────
+
 const infoBtn = document.querySelector('.info-btn');
 const modalBackdrop = document.getElementById('modal-backdrop');
 const modalCloseBtn = document.getElementById('modal-close');
