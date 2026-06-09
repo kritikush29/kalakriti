@@ -1,34 +1,38 @@
-# Kalakriti — Digital Sketchbook
+# Kalakriti — Digital Gallery
 
-Kalakriti is a beautiful, immersive, and responsive digital sketchbook designed to showcase paintings, drawings, and digital art in an interactive, clean rectangular carousel format.
+Kalakriti is an immersive, cinematic digital art gallery designed to showcase paintings, drawings, and digital art in a museum-grade dark exhibition space.
 
-Built with vanilla HTML, CSS, and JavaScript, it features a highly polished design with smooth animations, elegant glassmorphism, and multi-modal navigation suited for both desktop and mobile devices.
+Built with vanilla HTML, CSS, and JavaScript, it features a **"Gallery at Midnight"** design philosophy — using darkness as a frame and warm golden spotlighting to make colorful hand-painted artworks the undisputed star.
 
 ---
 
 ## ✨ Features
 
-- 🖼️ **Minimal Gallery Layout**: Artworks are displayed in elegant, modern rectangular containers with minimal borders and subtle shadows, putting the art at the center of attention.
-- 🌫️ **Immersive Carousel Effect**: Displays the active artwork in full focus, while adjacent pages are scaled down and blurred to build depth of field.
-- 🎨 **Aesthetic Background**: A subtle, drifting pastel gradient background with floating organic light orbs.
-- ℹ️ **Glassmorphism Info Modal**: An elegant info modal popup triggered by a minimalist "i" stamp button, presenting the artist's statement and core idea.
+- 🌑 **Dark Exhibition Theme**: Deep obsidian background with ambient gradient shifts and floating particle motes that create an atmospheric, museum-at-night experience.
+- 🖼️ **3D Perspective Carousel**: Artworks are displayed with real depth — center artwork in full focus with `rotateY()` perspective transforms, while adjacent works are scaled, blurred, and dimmed.
+- ✨ **Ambient Spotlight Glow**: The active artwork frame radiates a warm golden glow, simulating museum spotlighting.
+- 🎞️ **Filmstrip Navigator**: A vertical strip of clickable thumbnails on the right side for quick browsing.
+- 📊 **Artwork Counter**: Displays current position (e.g., `01 / 10`) above the artwork title.
+- 🎨 **Floating Paint Motes**: Canvas-based particle system with ~45 softly drifting particles for ambiance.
+- 🔮 **Glassmorphic UI**: All interactive elements (info button, arrows, modal) use frosted glass with backdrop-filter.
+- ℹ️ **Artist Statement Modal**: Full-viewport frosted glass overlay with the artist's personal statement.
 - 🎛️ **Multi-Modal Navigation**:
-  - Clickable side pages to jump directly to a page.
-  - Classic navigation arrows & bottom dot/dash progress indicators.
+  - Clickable filmstrip thumbnails.
+  - Navigation arrows & bottom dash-style progress indicators.
   - Keyboard arrow key navigation (`ArrowLeft` / `ArrowRight`).
   - Mobile touch swipe gesture support.
-  - **Trackpad Support**: Real-time two-finger horizontal wheel swipe tracking with an accumulator threshold to prevent accidental skipping.
-- 💻 **Fully Responsive**: Adapts seamlessly to all screen sizes, from ultra-wide monitors to mobile screens.
-- ⚙️ **Modular Design**: Configured via a simple data array, making it incredibly simple to add or swap artworks.
+  - **Trackpad Support**: Two-finger horizontal wheel swipe with accumulator threshold.
+- 💻 **Fully Responsive**: Adapts from ultra-wide monitors to mobile screens. Filmstrip hides below 1024px for cleaner mobile experience.
+- ⚙️ **Modular Design**: Configured via a simple data array for easy artwork management.
 
 ---
 
 ## 🛠️ Technology Stack
 
 - **Core Structure**: HTML5 (Semantic elements)
-- **Styling**: Vanilla CSS3 (Custom properties, grid, flexbox, keyframes, backdrop-filter)
-- **Interactions**: Vanilla JavaScript (ES6+, touch gestures, wheel API accumulator, event delegation)
-- **Typography**: WindSong (signature logo/titles), Inter (sans-serif), Playfair Display & Cormorant Garamond via Google Fonts
+- **Styling**: Vanilla CSS3 (Custom properties, perspective transforms, backdrop-filter, keyframes)
+- **Interactions**: Vanilla JavaScript (ES6+, Canvas 2D particle system, touch gestures, wheel API)
+- **Typography**: Cinzel Decorative (logo), Cinzel (headings), Outfit (body) via Google Fonts
 
 ---
 

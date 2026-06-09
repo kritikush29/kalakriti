@@ -229,16 +229,50 @@ body {
   }
 }
 
-/* ============ PAGE INFO (Artwork Name) ============ */
-.page-info {
+/* ============ GALLERY STAGE ============ */
+.gallery-stage {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  flex: 1;
+  position: relative;
+  gap: 0;
+}
+
+.gallery-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
+}
+
+/* ============ ARTWORK INFO (Name + Counter) ============ */
+.artwork-info {
   text-align: center;
   margin-bottom: 22px;
   z-index: 10;
   position: relative;
-  min-height: 44px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.page-info .artwork-name {
+.artwork-counter {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-light);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.artwork-name {
   font-family: 'WindSong', cursive;
   font-size: 38px;
   font-weight: 400;
@@ -249,7 +283,7 @@ body {
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-.page-info .artwork-name.transitioning {
+.artwork-name.transitioning {
   opacity: 0;
   transform: translateY(-6px);
 }
@@ -377,14 +411,8 @@ body {
   position: relative;
 }
 
-/* Stacked pages effect disabled */
-.book-card::before {
-  display: none;
-}
-
-.book-card::after {
-  display: none;
-}
+.book-card::before { display: none; }
+.book-card::after { display: none; }
 
 /* ============ THE BOOK ============ */
 .book {
@@ -395,10 +423,7 @@ body {
   overflow: hidden;
 }
 
-/* Paper texture overlay disabled */
-.book::before {
-  display: none;
-}
+.book::before { display: none; }
 
 .book-pages {
   position: relative;
@@ -406,8 +431,6 @@ body {
 }
 
 /* ============ ARTWORK AREA ============ */
-
-/* Full-spread mode: image spans both pages */
 .artwork-spread {
   position: relative;
   width: 100%;
@@ -494,7 +517,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Full spread placeholder */
 .artwork-spread .artwork-placeholder {
   width: calc(100% - 48px);
   height: calc(100% - 48px);
@@ -504,18 +526,11 @@ body {
 }
 
 /* ============ SPINE & FOLD EFFECT ============ */
-.book-spine {
-  display: none;
-}
-
-.book-fold {
-  display: none;
-}
+.book-spine { display: none; }
+.book-fold { display: none; }
 
 /* ============ RIBBON BOOKMARK ============ */
-.ribbon {
-  display: none;
-}
+.ribbon { display: none; }
 
 .ribbon-body {
   width: 100%;
@@ -525,7 +540,6 @@ body {
   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Ribbon tail (V-cut) */
 .ribbon-body::after {
   content: '';
   position: absolute;
@@ -538,7 +552,6 @@ body {
   border-bottom: 9px solid transparent;
 }
 
-/* Ribbon fold detail */
 .ribbon-body::before {
   content: '';
   position: absolute;
@@ -548,6 +561,85 @@ body {
   height: 100%;
   background: linear-gradient(to right, transparent, var(--ribbon-dark));
   opacity: 0.6;
+}
+
+/* ============ FILMSTRIP SIDEBAR ============ */
+.filmstrip {
+  width: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 6px;
+  margin-right: 8px;
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 10;
+  scrollbar-width: none;
+}
+
+.filmstrip::-webkit-scrollbar {
+  display: none;
+}
+
+.filmstrip-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1.5px solid rgba(45, 58, 71, 0.1);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+  opacity: 0.5;
+  background: #fff;
+  padding: 0;
+  outline: none;
+}
+
+.filmstrip-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.filmstrip-thumb:hover {
+  opacity: 0.85;
+  border-color: rgba(45, 58, 71, 0.25);
+  transform: scale(1.08);
+  box-shadow: 0 2px 10px rgba(45, 58, 71, 0.1);
+}
+
+.filmstrip-thumb.active {
+  opacity: 1;
+  border-color: var(--rosewood);
+  box-shadow: 0 2px 12px rgba(180, 106, 114, 0.3);
+}
+
+.filmstrip-thumb.active img {
+  transform: scale(1.05);
+}
+
+/* Placeholder thumbnail */
+.filmstrip-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--page-cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filmstrip-thumb-placeholder svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-light);
+  stroke-width: 1.5;
+  fill: none;
 }
 
 /* ============ NAVIGATION DOTS ============ */
@@ -586,6 +678,9 @@ body {
   box-shadow: 0 2px 8px rgba(180, 106, 114, 0.4);
 }
 
+/* ============ HIDDEN LEGACY ELEMENTS ============ */
+.page-info { display: none; }
+
 /* ============ ENTRANCE ANIMATION ============ */
 @keyframes fadeInUp {
   from {
@@ -602,7 +697,7 @@ body {
   animation: fadeInUp 0.8s ease-out;
 }
 
-.page-info {
+.artwork-info {
   animation: fadeInUp 0.8s ease-out 0.15s both;
 }
 
@@ -614,7 +709,22 @@ body {
   animation: fadeInUp 0.8s ease-out 0.45s both;
 }
 
+.filmstrip {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
 /* ============ RESPONSIVE ============ */
+
+@media (max-width: 1024px) {
+  .filmstrip {
+    display: none;
+  }
+
+  .gallery-stage {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 900px) {
   .carousel-viewport {
     height: 420px;
@@ -664,8 +774,18 @@ body {
     border-radius: 6px;
   }
 
-  .page-info .artwork-name {
+  .artwork-info {
+    margin-bottom: 16px;
+    min-height: 55px;
+  }
+
+  .artwork-name {
     font-size: 28px;
+  }
+
+  .artwork-counter {
+    font-size: 10px;
+    letter-spacing: 3px;
   }
 
   .nav-arrow {
@@ -743,11 +863,11 @@ body {
     height: 300px;
   }
 
-  .page-info .artwork-name {
+  .artwork-name {
     font-size: 24px;
   }
 
-  .page-info {
+  .artwork-info {
     margin-bottom: 14px;
     min-height: 50px;
   }

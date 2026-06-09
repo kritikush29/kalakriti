@@ -14,35 +14,51 @@
     <!-- ═══════ Header ═══════ -->
     <header class="header">
       <a class="site-logo" href="#" title="Kalakriti">Kalakriti</a>
-      <button class="info-btn" title="About this sketchbook" aria-label="Info">i</button>
+      <button class="info-btn" id="info-btn" title="About this sketchbook" aria-label="Info">i</button>
     </header>
 
-    <!-- ═══════ Artwork Name ═══════ -->
-    <div class="page-info">
-      <h1 class="artwork-name" id="page-name"></h1>
-    </div>
+    <!-- ═══════ Gallery Stage ═══════ -->
+    <div class="gallery-stage">
 
-    <!-- ═══════ Carousel ═══════ -->
-    <div class="carousel-wrapper">
-      <button class="nav-arrow nav-left" id="nav-left" aria-label="Previous page">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </button>
+      <!-- Main Gallery Area -->
+      <div class="gallery-main">
 
-      <div class="carousel-viewport" id="carousel-viewport">
-        <!-- Carousel items rendered by JS -->
+        <!-- Artwork Info (Counter + Name) -->
+        <div class="artwork-info">
+          <span class="artwork-counter" id="artwork-counter"></span>
+          <h1 class="artwork-name" id="artwork-name"></h1>
+        </div>
+
+        <!-- Carousel -->
+        <div class="carousel-wrapper">
+          <button class="nav-arrow nav-left" id="nav-left" aria-label="Previous page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div class="carousel-viewport" id="carousel-viewport">
+            <!-- Carousel items rendered by JS -->
+          </div>
+
+          <button class="nav-arrow nav-right" id="nav-right" aria-label="Next page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="dots-container" id="dots-container"></div>
+
       </div>
 
-      <button class="nav-arrow nav-right" id="nav-right" aria-label="Next page">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 6 15 12 9 18" />
-        </svg>
-      </button>
-    </div>
+      <!-- Filmstrip Sidebar -->
+      <div class="filmstrip" id="filmstrip">
+        <!-- Filmstrip thumbnails rendered by JS -->
+      </div>
 
-    <!-- ═══════ Navigation Dots ═══════ -->
-    <div class="dots-container" id="dots-container"></div>
+    </div>
 
     <!-- ═══════ Info Modal ═══════ -->
     <div class="modal-backdrop" id="modal-backdrop">

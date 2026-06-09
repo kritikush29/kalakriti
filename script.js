@@ -79,8 +79,10 @@ let wheelAccumulator = 0; // Tracks trackpad swipe distance to prevent multi-sli
 // DOM REFERENCES
 
 const viewport = document.getElementById('carousel-viewport');
-const nameEl = document.getElementById('page-name');
+const nameEl = document.getElementById('artwork-name');
+const counterEl = document.getElementById('artwork-counter');
 const dotsContainer = document.getElementById('dots-container');
+const filmstrip = document.getElementById('filmstrip');
 const navLeft = document.getElementById('nav-left');
 const navRight = document.getElementById('nav-right');
 
@@ -127,10 +129,51 @@ function buildCarousel() {
     viewport.appendChild(el);
   });
   buildDots();
+  buildFilmstrip();
   updateCarousel(false);
 }
 
+
+// FILMSTRIP
+
+function buildFilmstrip() {
+  filmstrip.innerHTML = '';
+  artworksData.forEach((artwork, i) => {
+    const thumb = document.createElement('button');
+    thumb.className = 'filmstrip-thumb' + (i === currentIndex ? ' active' : '');
+    thumb.setAttribute('aria-label', `View ${artwork.title}`);
+    thumb.addEventListener('click', () => goTo(i));
+
+    if (artwork.imageSrc) {
+      thumb.innerHTML = `<img src="${artwork.imageSrc}" alt="${artwork.title}" loading="lazy" />`;
+    } else {
+      thumb.innerHTML = `<div class="filmstrip-thumb-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>`;
+    }
+
+    filmstrip.appendChild(thumb);
+  });
+}
+
+function updateFilmstrip() {
+  const thumbs = filmstrip.querySelectorAll('.filmstrip-thumb');
+  thumbs.forEach((thumb, i) => {
+    thumb.classList.toggle('active', i === currentIndex);
+  });
+
+  // Scroll active thumbnail into view
+  const activeThumb = thumbs[currentIndex];
+  if (activeThumb) {
+    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+
 // DOTS
+
 function buildDots() {
   dotsContainer.innerHTML = '';
   artworksData.forEach((_, i) => {
@@ -185,9 +228,11 @@ function updateCarousel(animate = true) {
     }
   });
 
-  // Update text
+  // Update text & controls
   updatePageInfo(animate);
+  updateCounter();
   updateDots();
+  updateFilmstrip();
   updateNavArrows();
 }
 
@@ -208,6 +253,14 @@ function updatePageInfo(animate = true) {
     nameEl.textContent = artwork.title;
     nameEl.classList.remove('transitioning');
   }, 300);
+}
+
+// ARTWORK COUNTER
+
+function updateCounter() {
+  const current = String(currentIndex + 1).padStart(2, '0');
+  const total = String(artworksData.length).padStart(2, '0');
+  counterEl.textContent = `${current}  /  ${total}`;
 }
 
 // NAV ARROWS
@@ -344,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // INFO MODAL
 
-const infoBtn = document.querySelector('.info-btn');
+const infoBtn = document.getElementById('info-btn');
 const modalBackdrop = document.getElementById('modal-backdrop');
 const modalCloseBtn = document.getElementById('modal-close');
 
